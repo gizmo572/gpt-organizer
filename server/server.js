@@ -18,7 +18,7 @@ const dbConnect = async () => {
 
 dbConnect();
 
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/logIn');
 const signUpRouter = require('./routes/signUp');
 
 
@@ -46,7 +46,6 @@ app.use((err, req, res, next) => {
 		status: 400,
 		message: { err: 'An error occurred' },
 	};
-    console.log('hmmmm')
 	const errorObj = Object.assign(defaultErr, err);
 	console.log('err', errorObj.log);
 	return res.status(errorObj.status).json(errorObj.message);
