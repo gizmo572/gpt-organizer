@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 const App = () => {
@@ -6,9 +7,14 @@ const App = () => {
 
 
     return (
-        <>
-            <div>HELLO WORLLLLLLLDDDDDD!!!!!</div>
-        </>
+        <Router>
+            <Switch>
+                <div>HELLO WORLLLLLLLDDDDDD!!!!!</div>
+                <Route exact path="/log-in" component={logInPage} />
+                <Route exact path="/sign-up" component={signUpPage} />
+                <Route exact path="/" component={logInPage} />
+            </Switch>
+        </Router>
     )
 
 
