@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+form {
+    margin: auto;
+    height: 100vh;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form > * {
+    margin: .25em;
+}
+
+#logInBtn {
+    font-size: 2.5em;
+    padding: .15em .5em;
+    width: 5em;
+}
+
+form > label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: .75em;
+}
+
+form > label > h2 {
+    font-size: 2.5em;
+}
+
+label > input {
+    width: 100%;
+    height: 2.5em;
+    padding: .25em;
+}

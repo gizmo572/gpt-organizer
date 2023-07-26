@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
 
 const cookieController = {};
 
@@ -13,4 +14,10 @@ cookieController.setCookie = (req, res, next) => {
 
 //     }
 
+// }
+
+// cookieController.setJWT = (req, res, next) => {
+//     const {username, password} = req.body;
+
+//     const accessToken = jwt.sign({username}, process.env.JWT_SECRET)
 // }

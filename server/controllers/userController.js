@@ -18,6 +18,11 @@ userController.createUser = async (req, res, next) => {
     }
 }
 
+userController.verifyUser = async (req, res, next) => {
+
+    return next();
+}
+
 userController.getUser = async (req, res, next) => {
     const {username} = req.body;
     try {

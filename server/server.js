@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
+require('dotenv').config();
 
-const mongoURI = 'mongodb://localhost/gpt_organizer_dev';
+const mongoURI = process.env.DATABASE_URI;
 
 const PORT = 3000;
 
@@ -22,18 +23,17 @@ const usersRouter = require('./routes/logIn');
 const signUpRouter = require('./routes/signUp');
 
 
-
 app.use(express.json());
 
 
 app.use(express.static(path.resolve(__dirname, '../build')));
 
 
-
+console.log('1')
 app.use('/log-in', usersRouter);
-
-app.use('sign-up', signUpRouter);
-
+console.log('2')
+app.use('/sign-up', signUpRouter);
+console.log('3')
 
 app.use((req, res) => {
     res.sendStatus(404);
