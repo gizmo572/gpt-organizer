@@ -21,7 +21,8 @@ dbConnect();
 
 const usersRouter = require('./routes/logIn');
 const signUpRouter = require('./routes/signUp');
-
+const chatRouter = require('./routes/chat');
+const saveRouter = require('./routes/saveToDB');
 
 app.use(express.json());
 
@@ -29,11 +30,10 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../build')));
 
 
-console.log('1')
 app.use('/log-in', usersRouter);
-console.log('2')
 app.use('/sign-up', signUpRouter);
-console.log('3')
+app.use('/chat', chatRouter);
+app.use('/save', saveRouter);
 
 app.use((req, res) => {
     res.sendStatus(404);

@@ -2,14 +2,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Roboto', sans-serif, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1, nav > h2 {
+    font-family: 'Amatic SC', cursive, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 3em;
 }
 
 body {
     background-color: aqua;
 }
 
-form {
+#logInForm {
     margin: auto;
     height: 100vh;
     border: 1px solid red;
@@ -19,7 +24,7 @@ form {
     justify-content: center;
 }
 
-form > * {
+#logInForm > * {
     margin: .25em;
 }
 
@@ -47,3 +52,117 @@ label > input {
 }
 
 /* dashboard styles */
+
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid red;
+    height: 100vh;
+}
+
+header, footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+#dashboard > form {
+    height: auto;
+}
+
+#dashboard > form > * {
+    width: 30em;
+    height: 3em;
+    padding: .25em;
+
+}
+
+main {
+    display: flex;
+}
+
+/* dashboard -> nav bar */
+
+#belowHeader {
+    display: flex;
+}
+
+nav {
+    border: 2px solid purple;
+    flex-basis: 20%;
+    height: 90vh;
+    border-radius: 0 10px 0 0;
+}
+
+nav h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#category {
+    display: flex;
+    justify-content: center;
+}
+
+#category > button {
+    font-size: 2em;
+    padding: .25em;
+    width: 100%;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
+
+/* right-of-nav (main/footer) */
+
+#rightOfNav {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 80%;
+}
+
+main {
+    flex-basis: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+#rightOfNav > form {
+    flex-basis: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+}
+
+#rightOfNav textarea {
+    height: 6em;
+    flex-basis: 70%;
+    background-color: rgb(220,220,220);
+    border-radius: 10px;
+    padding: .4em;
+    font-size: 1.5em;
+}
+
+#rightOfNav input, form button {
+    height: 4em;
+    flex-basis: 15%;
+    border-radius: 10px;
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+main > div {
+    padding: .5em;
+}
+
+#user {
+    color: rgb(66, 0, 88);
+}
+
+#gpt {
+    color: rgb(255, 0, 0);
+}

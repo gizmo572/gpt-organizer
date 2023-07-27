@@ -12,12 +12,14 @@ const getUserData = async (token) => {
             'Authorization': `Bearer ${token}`
         }
     });
+    console.log('response', response)
     if (response.ok) {
         const data = await response.json();
         console.log('jsonified', data)
         return data;
     } else {
-        throw new Error('Failed to fetch user data');
+        localStorage.removeItem('authToken');
+        return {};
     }
 }
 
@@ -52,7 +54,7 @@ const App = () => {
 
         <Router>
             <Routes>
-                <Route path="/" element={user.username ? <Dashboard /> : <LogIn setLoggedIn={setLoggedIn} />} />
+                <Route path="/" element={user.username ? <Dashboard user={user}/> : <LogIn setLoggedIn={setLoggedIn} />} />
                 <Route path="/sign-up" element={<SignUp />} />
             </Routes>
         </Router>

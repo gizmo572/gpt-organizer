@@ -42,13 +42,13 @@ cookieController.verifyJWT = (req, res, next) => {
         status: 401,
         message: { err: `An error occurred in cookieController.verifyJWT: no JWT` },
     })
+
     const token = authorization.split(' ')[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) return next({
-            log: `Express error in cookieController.verifyJWT: invalid JWT`,
-        status: 401,
-        message: { err: `An error occurred in cookieController.verifyJWT: invalid JWT` }
-        })
+    jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
+        if (err) return res.sendStatus(401);
+        const { username } = user;
+        const { categories } = await User.findOne({ username });
+        user['categories'] = categories;
         res.locals.user = user;
         console.log('userrrr', user)
         return next();

@@ -37,7 +37,9 @@ module.exports = {
             directory: path.join(__dirname, './build'),
         },
         proxy: {
-            '/log-in': 'http://localhost:3000'
+            '/log-in': 'http://localhost:3000',
+            '/chat': 'http://localhost:3000',
+            '/save': 'http://localhost:3000'
         }
     },
     plugins: [

@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs')
 const userController = {};
 
 userController.createUser = async (req, res, next) => {
-    const { username, password } = req.body;
+    const { username, password, categories } = req.body;
     try {
-        const newUser = await User.create({ username, password })
+        const newUser = await User.create({ username, password, categories })
         console.log('AHOY!!', newUser)
         res.locals.newUser = newUser;
         return next();
@@ -54,6 +54,7 @@ userController.verifyUser = async (req, res, next) => {
 }
 
 userController.getUser = async (req, res, next) => {
+    console.log('a', req.body)
     const {username} = req.body;
     try {
         const user = await User.findOne({username});
