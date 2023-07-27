@@ -7,14 +7,14 @@ import SignUp from './sign-up';
 import '../styles/styles.css';
 
 const getUserData = async (token) => {
-    const response = await fetch('', {
+    const response = await fetch('/log-in/verifyJwt', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     });
-
     if (response.ok) {
         const data = await response.json();
+        console.log('jsonified', data)
         return data;
     } else {
         throw new Error('Failed to fetch user data');
@@ -23,18 +23,22 @@ const getUserData = async (token) => {
 
 
 const App = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            fetchUserData(token);
+        // localStorage.removeItem('authToken')
+        const authToken = localStorage.getItem('authToken');
+        console.log('im IN!!! also token?', authToken)
+        if (authToken) {
+            fetchUserData(authToken);
         } else {
             setLoading(false);
             // setUser('bob');
         }
-    }, []);
+        setLoggedIn(false);
+    }, [loggedIn]);
 
     const fetchUserData = async (token) => {
         const userData = await getUserData(token);
@@ -43,12 +47,12 @@ const App = () => {
     };
 
     if (loading) return null;
-
+    console.log(user, 'user')
     return (
 
         <Router>
             <Routes>
-                <Route path="/" element={user ? <Dashboard /> : <LogIn />} />
+                <Route path="/" element={user.username ? <Dashboard /> : <LogIn setLoggedIn={setLoggedIn} />} />
                 <Route path="/sign-up" element={<SignUp />} />
             </Routes>
         </Router>

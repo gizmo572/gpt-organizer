@@ -5,6 +5,10 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+body {
+    background-color: aqua;
+}
+
 form {
     margin: auto;
     height: 100vh;
@@ -41,3 +45,5 @@ label > input {
     height: 2.5em;
     padding: .25em;
 }
+
+/* dashboard styles */

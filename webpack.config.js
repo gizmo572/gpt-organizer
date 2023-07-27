@@ -35,6 +35,9 @@ module.exports = {
     devServer: {
         static: {
             directory: path.join(__dirname, './build'),
+        },
+        proxy: {
+            '/log-in': 'http://localhost:3000'
         }
     },
     plugins: [

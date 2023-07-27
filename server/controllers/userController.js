@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require('bcryptjs')
 
 const userController = {};
 
@@ -19,8 +20,37 @@ userController.createUser = async (req, res, next) => {
 }
 
 userController.verifyUser = async (req, res, next) => {
+    const { username, password } = req.body;
+    
+    try {
+        const user = await User.findOne({username})
+        if (user === null) return res.status(200).json({});
+        try {
+            const match = await bcrypt.compare(password, user.password);
+            res.locals.user = user;
+            console.log('match', match)
+            return match ? next() : next({
+                log: `Express error in userController.verifyUser: invalid password`,
+                status: 400,
+                message: { err: `An error occurred in userController.verifyUser: invalid password` },
+            })
+        } catch (err) {
+            console.log(err)
+            next({
+                log: "Express error in userController.verifyUser",
+                status: 400,
+                message: { err: 'An error occurred in userController.verifyUser' },
+            })
+        }
 
-    return next();
+
+    } catch (err) {
+        next({
+            log: "Express error in userController.verifyUser",
+            status: 400,
+            message: { err: 'An error occurred in userController.verifyUser' },
+        })
+    }
 }
 
 userController.getUser = async (req, res, next) => {
