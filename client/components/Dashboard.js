@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import ConvoPart from './ConvoPart';
+import NavBar from '../containers/NavBar';
 import Category from './Category';
 
 
@@ -9,17 +10,12 @@ import Category from './Category';
 const Dashboard = ({ user }) => {
     const [inputVal, setInputVal] = useState('');
     const [convo, setConvo] = useState([{"role": "system", "content": "You are a helpful assistant."}]);
-    const [history, setHistory] = useState([])
-    const [customCategories, setCategories] = useState('asfsdf')
+    const [title, setTitle] = useState('');
+    const [category, setCategory] = useState('');
+    const [formDisplay, setFormDisplay] = useState('none');
     console.log('another one')
 
-    useEffect(() => {
-        const tempArray = [];
-        const { categories } = user;
-        Object.keys(categories).forEach((cat, i) => tempArray.push(<Category key={i} cat={cat} />));
-        setCategories(tempArray);
-
-    },[])
+    
     console.log('userData', user);
 
     const handleFetchResponse = async (e) => {
@@ -39,18 +35,34 @@ const Dashboard = ({ user }) => {
         setInputVal('');
     }
 
-    const handleSaveDialog = async (e) => {
+    const handlePostDialog = async (e) => {
         e.preventDefault();
-        console.log('hello')
+        if (!category || !title || category.split(' ') > 1 || title.split(' ') > 1) return;
+        const output = {};
+        output[category] = {};
+        output[category][title] = convo;
+        output.username = user.username;
+
         const response = await fetch('/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(output)
         })
 
         return;
+    }
+
+    const handleSaveDialog = (e) => {
+        e.preventDefault();
+        if (convo.length <= 1) return;
+        setFormDisplay('flex');
+
+    }
+
+    const handleConvoClick = (cat, key) => {
+        setConvo([{"role": "system", "content": "You are a helpful assistant."}, ...user.categories[cat][key]]);
     }
 
     const convoParts = [];
@@ -68,17 +80,31 @@ const Dashboard = ({ user }) => {
             </header>
             <section id='belowHeader'>
                 <nav>
-                    <h2>BRUH.  HISTORY THO.</h2>
-                    {customCategories}
+                    <h2>HISTORY</h2>
+                    <NavBar user={user} handleConvoClick={handleConvoClick} handleSaveDialog={handleSaveDialog} />
                 </nav>
                 <section id='rightOfNav'>
                     <main>
                         {convoParts}
+                        <div style={{ display: formDisplay }} id='saveDialogContainer'>
+                            <form id='saveDialogForm' onSubmit={handlePostDialog}>
+                                <button className='exitBtn' onClick={() => setFormDisplay('none')}>EXIT</button>
+                                <label>
+                                    <h2>CATEGORY</h2>
+                                    <input type="text" value={category} onChange={e => setCategory(e.target.value)} />
+                                </label>
+                                <label>
+                                    <h2>TITLE</h2>
+                                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
+                                </label>
+                                <input id='saveBtn' type="submit" value="SAVE" />
+                            </form>
+                        </div>
                     </main>
                     <form onSubmit={handleFetchResponse}>
                         <textarea type="text" value={inputVal} onChange={e => setInputVal(e.target.value)} />
                         <input id='searchBtn' type="submit" value="ENTER" />
-                        <button onClick={(e) => handleSaveDialog(e)}>SAVE DIALOG</button>
+                        <button onClick={(e) => handleSaveDialog(e) }>SAVE DIALOG</button>
                     </form>
                 </section>
             </section>

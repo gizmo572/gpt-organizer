@@ -23,6 +23,7 @@ const usersRouter = require('./routes/logIn');
 const signUpRouter = require('./routes/signUp');
 const chatRouter = require('./routes/chat');
 const saveRouter = require('./routes/saveToDB');
+const userController = require('./controllers/userController');
 
 app.use(express.json());
 
@@ -34,6 +35,13 @@ app.use('/log-in', usersRouter);
 app.use('/sign-up', signUpRouter);
 app.use('/chat', chatRouter);
 app.use('/save', saveRouter);
+app.get('/log-in/test', userController.getUser, (req, res) => {
+    res.status(200).json(res.locals.user);
+})
+
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'));
+})
 
 app.use((req, res) => {
     res.sendStatus(404);

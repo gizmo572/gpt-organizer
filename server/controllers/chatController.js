@@ -1,4 +1,5 @@
 const axios = require('axios');
+const User = require('../models/userModel');
 
 
 const chatController = {};
@@ -32,8 +33,31 @@ chatController.fetchGptResponse = async (req, res, next) => {
     }
 }
 
-chatController.saveConvo = (req, res, next) => {
+chatController.saveConvo = async (req, res, next) => {
+    const { username } = req.body;
+    const category = Object.keys(req.body).filter(key => key !== 'username')[0];
+    const title = Object.keys(req.body[category])[0];
+    const convos = req.body[category][title];
+    console.log(req.body, username, category, title, convos);
+    
+    const updatedUser = await User.updateOne(
+        { username: username },
+        [
+            {
+                $set: {
+                    [`categories.${category}`]: { $ifNull: [ `categories.${category}`, {} ] },
+                    [`categories.${category}.${title}`]: { $ifNull: [ `categories.${category}.${title}`, [] ] }
+                }
+            },
+            {
+                $push: { [`categories.${category}.${title}`]: { $each: convos } }
+            }
+        ]
+    );
+      
+
+    res.locals.updatedUser = updatedUser;
     return next();
-}
+};
 
 module.exports = chatController;

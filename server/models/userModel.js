@@ -6,7 +6,7 @@ const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
 
-const chatSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
     role: String,
     content: String
 }, { _id: false })
@@ -18,7 +18,7 @@ const userSchema = new Schema({
         type: Map,
         of: {
             type: Map,
-            of: [chatSchema]
+            of: [messageSchema]
         }
     }
 })

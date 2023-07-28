@@ -5,9 +5,9 @@ const userController = require('../controllers/userController');
 const chatController = require('../controllers/chatController');
 
 
-router.post('/', userController.getUser, chatController.saveConvo, (req, res) => {
+router.post('/', chatController.saveConvo, (req, res) => {
 
-    return res.status(200).json({});
+    return res.status(200).json(res.locals.updatedUser);
 })
 
 module.exports = router;

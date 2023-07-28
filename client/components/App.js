@@ -54,7 +54,7 @@ const App = () => {
 
         <Router>
             <Routes>
-                <Route path="/" element={user.username ? <Dashboard user={user}/> : <LogIn setLoggedIn={setLoggedIn} />} />
+                <Route path="/*" element={user.username ? <Dashboard user={user}/> : <LogIn setLoggedIn={setLoggedIn} />} />
                 <Route path="/sign-up" element={<SignUp />} />
             </Routes>
         </Router>

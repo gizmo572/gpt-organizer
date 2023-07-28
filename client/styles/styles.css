@@ -114,6 +114,13 @@ nav h2 {
     border-radius: 5px;
 }
 
+button {
+    font-size: 2em;
+    font-weight: bolder;
+    width: 100%;
+    padding: .25em;
+}
+
 
 /* right-of-nav (main/footer) */
 
@@ -165,4 +172,39 @@ main > div {
 
 #gpt {
     color: rgb(255, 0, 0);
+}
+
+
+
+/* save convo pop-up */
+
+#saveDialogContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(40,40,40,.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    border: 1px solid red;
+}
+
+/* #saveDialogForm > * {
+    width: 50%;
+} */
+
+
+#saveBtn {
+    margin-top: 2em;
+    width: 100%;
+    background-color: green;
+    font-size: 5em;
+}
+
+.exitBtn {
+    background: red;
+    color: rgb(230,230,230);
 }
