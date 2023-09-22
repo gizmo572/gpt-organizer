@@ -21,10 +21,11 @@ userController.createUser = async (req, res, next) => {
 
 userController.verifyUser = async (req, res, next) => {
     const { username, password } = req.body;
-    
+    console.log(req.body, 'req.body', password)
     try {
         const user = await User.findOne({username})
         if (user === null) return res.status(200).json({});
+        console.log(user.password, 'zzzzz', typeof password)
         try {
             const match = await bcrypt.compare(password, user.password);
             res.locals.user = user;

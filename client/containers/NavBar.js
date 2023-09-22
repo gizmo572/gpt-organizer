@@ -16,6 +16,7 @@ const NavBar = ({ user, handleConvoClick, handleSaveDialog }) => {
 
     return (
         <div>
+            {console.log(user)}
             <Routes>
                 <Route path="/" element={<Categories user={user} />} />
                 {Object.keys(user.categories).map((cat,i) => (

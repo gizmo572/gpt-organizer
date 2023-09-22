@@ -9,9 +9,11 @@ const Convos = ({ convos, handleConvoClick, cat }) => {
 
     return (
         <div className='cats' >
-            {Object.keys(convos).map(key => (
-            <button onClick={() => handleConvoClick(cat, key)} key={key}>{key}</button>
-            ))}
+            HELLO!!!!
+            {Object.keys(convos).map(key =>
+                <button onClick={() => handleConvoClick(cat, key)} key={key}>{key}</button>
+            )}
+            {console.log(convos, 'saf;kl')}
         </div>
     )
 

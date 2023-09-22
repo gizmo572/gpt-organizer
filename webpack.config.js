@@ -39,7 +39,8 @@ module.exports = {
         proxy: {
             '/log-in': 'http://localhost:3000',
             '/chat': 'http://localhost:3000',
-            '/save': 'http://localhost:3000'
+            '/save': 'http://localhost:3000',
+            '/sign-up': 'http://localhost:3000'
         }
     },
     plugins: [
